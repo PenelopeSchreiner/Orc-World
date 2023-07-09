@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c25qqmw7tqvl3"]
+
+[ext_resource type="Script" path="res://Behavior_Tree/Decorators/UntilSuccess.gd" id="1_h6obq"]
+
+[node name="UntilSuccess" type="Node"]
+script = ExtResource("1_h6obq")

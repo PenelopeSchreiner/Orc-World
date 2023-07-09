@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://u4u6btv1ng47"]
+
+[ext_resource type="Texture2D" uid="uid://bxxyht2veismo" path="res://white circle.png" id="1_kla3x"]
+[ext_resource type="Script" path="res://examples/color_change_test/color_change_entry.gd" id="2_5f7o8"]
+[ext_resource type="Script" path="res://Behavior_Tree/Decorators/Repeat.gd" id="2_i5yix"]
+[ext_resource type="Script" path="res://Behavior_Tree/Decorators/UntilSuccess.gd" id="3_8olly"]
+[ext_resource type="Script" path="res://Behavior_Tree/Composite/Sequence.gd" id="3_d7vtu"]
+[ext_resource type="Script" path="res://Scripts/Custom BTree/leaf/Counter.gd" id="3_hc5ag"]
+[ext_resource type="Script" path="res://examples/color_change_test/ChangeColor.gd" id="6_n3fet"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(564, 299)
+scale = Vector2(10, 10)
+texture = ExtResource("1_kla3x")
+script = ExtResource("2_5f7o8")
+
+[node name="Counter" type="Node" parent="Sprite2D"]
+script = ExtResource("3_hc5ag")
+
+[node name="ChangeColor" type="Node" parent="."]
+script = ExtResource("6_n3fet")
+target = NodePath("../Sprite2D")
+
+[node name="Sequence" type="Node" parent="ChangeColor"]
+script = ExtResource("3_d7vtu")
+
+[node name="Repeat" type="Node" parent="ChangeColor"]
+script = ExtResource("2_i5yix")
+Limit = 2
+
+[node name="UntilSuccess" type="Node" parent="ChangeColor"]
+script = ExtResource("3_8olly")

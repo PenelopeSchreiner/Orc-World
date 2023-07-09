@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgvusrcx6bywm"]
+
+[ext_resource type="Script" path="res://Behavior_Tree/Decorators/AlwaysFail.gd" id="1_84uv1"]
+
+[node name="AlwaysFail" type="Node"]
+script = ExtResource("1_84uv1")

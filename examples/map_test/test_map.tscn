@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvnma4xj8kc63"]
+
+[ext_resource type="Script" path="res://examples/map_test/TestSetup.gd" id="1_jxetj"]
+[ext_resource type="Script" path="res://examples/map_test/test_map.gd" id="1_sp6aw"]
+[ext_resource type="PackedScene" uid="uid://btp2m0u7o1smd" path="res://Prefabs/Player/player_cam.tscn" id="2_02g0k"]
+[ext_resource type="PackedScene" uid="uid://dssxfa1kmyplu" path="res://Prefabs/UI/fps.tscn" id="4_yx0ly"]
+[ext_resource type="PackedScene" uid="uid://dncgd5myi6ul0" path="res://Prefabs/UI/needs_ui.tscn" id="5_rhchx"]
+
+[node name="TestMap" type="Node2D"]
+script = ExtResource("1_sp6aw")
+
+[node name="Actors" type="Node" parent="."]
+
+[node name="TestSetup" type="Node" parent="."]
+script = ExtResource("1_jxetj")
+
+[node name="PlayerCam" parent="." instance=ExtResource("2_02g0k")]
+zoom = Vector2(2.5, 2.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FPS" parent="CanvasLayer" instance=ExtResource("4_yx0ly")]
+
+[node name="Needs" parent="CanvasLayer" instance=ExtResource("5_rhchx")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -195.0
+offset_bottom = -45.0
+grow_vertical = 0
+size_flags_horizontal = 0
+
+[node name="Tick Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Tick Timer" to="." method="_on_tick_timer_timeout"]

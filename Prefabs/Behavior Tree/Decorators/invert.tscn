@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bstashwj0miia"]
+
+[ext_resource type="Script" path="res://Behavior_Tree/Decorators/Invert.gd" id="1_ryr31"]
+
+[node name="Invert" type="Node"]
+script = ExtResource("1_ryr31")

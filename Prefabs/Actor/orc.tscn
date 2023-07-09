@@ -1,0 +1,94 @@
+[gd_scene load_steps=17 format=3 uid="uid://bwwuxneiq4uv5"]
+
+[ext_resource type="Texture2D" uid="uid://bgfiou4a10om5" path="res://Textures/Actor/orc.png" id="1_fyboc"]
+[ext_resource type="Script" path="res://Scripts/Actor/OrcActor.gd" id="1_ppmpu"]
+[ext_resource type="Script" path="res://Scripts/ActorStats.gd" id="1_ysb8x"]
+[ext_resource type="Script" path="res://Scripts/ActorBrains/OrcBrain.gd" id="3_cn2ye"]
+[ext_resource type="PackedScene" uid="uid://b282id4om1pxw" path="res://Prefabs/Behavior Tree/Composites/sequence.tscn" id="5_dxf01"]
+[ext_resource type="PackedScene" uid="uid://bj62geykn0pcr" path="res://Prefabs/Behavior Tree/Leaves/print_message.tscn" id="5_f1pui"]
+[ext_resource type="Script" path="res://Behavior_Tree/Composite/Selector.gd" id="5_mlf8p"]
+[ext_resource type="Script" path="res://Scripts/Custom BTree/leaf/IsNeedLow.gd" id="8_r6qd1"]
+[ext_resource type="Script" path="res://Scripts/Custom BTree/leaf/ShowCommBub.gd" id="9_0pyv8"]
+[ext_resource type="PackedScene" uid="uid://1vrho4boacg3" path="res://Prefabs/UI/comm_bubble.tscn" id="9_ogfr7"]
+[ext_resource type="Script" path="res://Scripts/Actor/Comm.gd" id="10_16iav"]
+[ext_resource type="Texture2D" uid="uid://bd1pb45x51h02" path="res://Textures/UI/comm icons/hungry.png" id="10_vyitd"]
+[ext_resource type="Texture2D" uid="uid://brgphnpcvw6a6" path="res://Textures/UI/comm icons/thirsty.png" id="11_in8wh"]
+
+[sub_resource type="Resource" id="Resource_7fkb7"]
+script = ExtResource("10_16iav")
+type = 0
+comm_tex = ExtResource("10_vyitd")
+
+[sub_resource type="Resource" id="Resource_01lhp"]
+script = ExtResource("10_16iav")
+type = 1
+comm_tex = ExtResource("11_in8wh")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rxjp7"]
+
+[node name="Orc" type="CharacterBody2D"]
+script = ExtResource("1_ppmpu")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("1_ysb8x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_fyboc")
+
+[node name="Behavior Tree" type="Node" parent="."]
+script = ExtResource("3_cn2ye")
+
+[node name="-Selec- Main" type="Node" parent="Behavior Tree"]
+script = ExtResource("5_mlf8p")
+
+[node name="-seq- Check Health" parent="Behavior Tree/-Selec- Main" instance=ExtResource("5_dxf01")]
+
+[node name="IsHPLow" type="Node" parent="Behavior Tree/-Selec- Main/-seq- Check Health"]
+script = ExtResource("8_r6qd1")
+low_threshold = 25.0
+
+[node name="PrintMessage" parent="Behavior Tree/-Selec- Main/-seq- Check Health" instance=ExtResource("5_f1pui")]
+message = "My Health is Low!"
+
+[node name="-Seq- Check Hunger" parent="Behavior Tree/-Selec- Main" instance=ExtResource("5_dxf01")]
+
+[node name="IsHungerLow" type="Node" parent="Behavior Tree/-Selec- Main/-Seq- Check Hunger"]
+script = ExtResource("8_r6qd1")
+need_type = 1
+low_threshold = 25.0
+
+[node name="PrintMessage" parent="Behavior Tree/-Selec- Main/-Seq- Check Hunger" instance=ExtResource("5_f1pui")]
+message = "I'm hungry!"
+
+[node name="ShowCommBub" type="Node" parent="Behavior Tree/-Selec- Main/-Seq- Check Hunger"]
+script = ExtResource("9_0pyv8")
+comm = SubResource("Resource_7fkb7")
+
+[node name="-Seq- Check Hunger2" parent="Behavior Tree/-Selec- Main" instance=ExtResource("5_dxf01")]
+
+[node name="IsThirstLow" type="Node" parent="Behavior Tree/-Selec- Main/-Seq- Check Hunger2"]
+script = ExtResource("8_r6qd1")
+need_type = 2
+low_threshold = 25.0
+
+[node name="PrintMessage" parent="Behavior Tree/-Selec- Main/-Seq- Check Hunger2" instance=ExtResource("5_f1pui")]
+message = "Thirsty!"
+
+[node name="ShowCommBub" type="Node" parent="Behavior Tree/-Selec- Main/-Seq- Check Hunger2"]
+script = ExtResource("9_0pyv8")
+comm = SubResource("Resource_01lhp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_rxjp7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Comm Bubble" parent="CanvasLayer" instance=ExtResource("9_ogfr7")]
+visible = false
+offset_left = -4.0
+offset_top = -47.0
+offset_right = -1156.0
+offset_bottom = -695.0
+scale = Vector2(0.5, 0.5)

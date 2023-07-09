@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://g23v2sj45pjy"]
+
+[ext_resource type="Texture2D" uid="uid://vrqx1pchdbo8" path="res://Textures/UI/hungar bar-sheet.png" id="1_ll1m0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3x0k"]
+atlas = ExtResource("1_ll1m0")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmjfh"]
+atlas = ExtResource("1_ll1m0")
+region = Rect2(0, 0, 128, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx3li"]
+atlas = ExtResource("1_ll1m0")
+region = Rect2(0, 32, 128, 32)
+
+[node name="Need Bar" type="HBoxContainer"]
+texture_filter = 1
+layout_direction = 2
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -11
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_w3x0k")
+
+[node name="textureprogress" type="TextureProgressBar" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+value = 100.0
+texture_over = SubResource("AtlasTexture_vmjfh")
+texture_progress = SubResource("AtlasTexture_xx3li")
+tint_progress = Color(1, 0.419608, 0.0901961, 1)

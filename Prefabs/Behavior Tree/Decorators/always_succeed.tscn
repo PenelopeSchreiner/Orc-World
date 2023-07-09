@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb3p7ksrnc68"]
+
+[ext_resource type="Script" path="res://Behavior_Tree/Decorators/AlwaysSucceed.gd" id="1_asnb0"]
+
+[node name="AlwaysSucceed" type="Node"]
+script = ExtResource("1_asnb0")
